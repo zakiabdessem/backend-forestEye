@@ -1,4 +1,0 @@
-NODE_ENV="development"
-COOKIE_URL="http://localhost:3000"
-MONGO_URI="mongodb+srv://admin:z123z123@fireme.x7r0dua.mongodb.net/?retryWrites=true&w=majority&appName=fireme"
-SECRET="setwery345345b5fgh5hh"

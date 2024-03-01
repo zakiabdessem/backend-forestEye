@@ -3,6 +3,9 @@ import { UserRole } from './user.entity';
 
 @Schema({ timestamps: true })
 export class User {
+
+  _id: string;
+
   @Prop({ required: true })
   name: string;
 

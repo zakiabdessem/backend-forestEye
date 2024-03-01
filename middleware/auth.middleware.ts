@@ -9,7 +9,9 @@ export class AuthMiddleware implements NestMiddleware {
 
     if (!token) return res.status(404).json({ auth: false });
     try {
-      verify(token, process.env.SECRET);
+      const decoded = verify(token, process.env.SECRET);
+
+      req.decodedToken = decoded;
 
       next();
     } catch (e) {

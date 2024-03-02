@@ -13,7 +13,7 @@ import { sign, verify } from 'jsonwebtoken';
 import cookieConfig from './../../config/cookie';
 import { UserService } from './user.service';
 import { OAuth2Client } from 'google-auth-library';
-import fs from 'fs';
+import { readFileSync } from 'fs';
 import { publicEncrypt, privateDecrypt } from 'crypto';
 
 @Controller('user')
@@ -42,20 +42,18 @@ export class UserController {
 
       const token = await sign(user._id.toString(), process.env.SECRET);
 
-      //hash user with node rsa
-      const publicKey = fs.readFileSync('./public.pem', 'utf8');
-      const privateKey = fs.readFileSync('./private.pem', 'utf8');
+      //Hash user with Node Rsa
+      const publicKey = readFileSync('./public.pem', 'utf8');
       const encrypted = publicEncrypt(
         publicKey,
-        Buffer.from(user._id.toString()),
+        Buffer.from(user.email.toString()),
       );
-      const decrypted = privateDecrypt(privateKey, encrypted);
-      console.log('decrypted: ', decrypted.toString());
+      console.log('encrypted: ', encrypted.toString('base64'));
 
       return res
         .cookie('jwt', token, cookieConfig())
         .status(HttpStatus.OK)
-        .json({ message: 'Auth Success', user, token });
+        .json({ message: 'Auth Success', user: encrypted, token });
     } catch (error) {
       console.error(error);
       return res.status(HttpStatus.UNAUTHORIZED).json({

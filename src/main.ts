@@ -10,7 +10,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.enableCors({
-    origin: 'https://front-foresteye-fsbe.vercel.app',
+    origin: 'https://front-foresteye-fsbe-ftcgp9qqf-zakiabdessem.vercel.app',
     credentials: true,
   });
 

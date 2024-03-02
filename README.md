@@ -88,7 +88,7 @@ Enjoy building and enhancing forest safety experiences with the ForestGuard API!
 
 In this project, we employ a combination of JWT (JSON Web Tokens) and RSA encryption to secure user data and ensure its integrity throughout the authentication process. This multi-layered approach to security leverages the strengths of both symmetric and asymmetric encryption methods to provide a robust defense against unauthorized data access and manipulation.
 
-/\*\*
+\*\*
 
 - Create two files private.pem and public.pem to get started.
-  \*/
+  \*

@@ -1,20 +1,6 @@
-import {
-  IsEmail,
-  IsNotEmpty,
-  IsString,
-  MinLength,
-  IsEnum,
-  MaxLength,
-} from 'class-validator';
-
-import { UserRole } from '../user.entity';
+import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 
 export class UserCreateDto {
-  @IsString()
-  @IsNotEmpty()
-  @MaxLength(50)
-  name: string;
-
   @IsEmail()
   email: string;
 
@@ -22,9 +8,4 @@ export class UserCreateDto {
   @IsNotEmpty()
   @MinLength(6)
   password: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @IsEnum(UserRole)
-  roles: string;
 }

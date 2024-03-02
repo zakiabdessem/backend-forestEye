@@ -43,7 +43,7 @@ export class UserController {
       return res
         .cookie('jwt', token, cookieConfig())
         .status(HttpStatus.OK)
-        .json({ message: 'Auth Success', token });
+        .json({ message: 'Auth Success', user, token });
     } catch (error) {
       console.error(error);
       return res.status(HttpStatus.UNAUTHORIZED).json({

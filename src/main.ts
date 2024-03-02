@@ -13,6 +13,7 @@ async function bootstrap() {
     origin: 'http://localhost:5173',
     credentials: true,
   });
+
   app.use(cookieParser());
   app.use(
     session({
@@ -26,6 +27,6 @@ async function bootstrap() {
   app.setBaseViewsDir(resolve('./src/views'));
   app.setViewEngine('hbs');
 
-  await app.listen(8000);
+  await app.listen(process.env.PORT || 8080);
 }
 bootstrap();

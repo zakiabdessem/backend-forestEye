@@ -9,12 +9,12 @@ import {
 } from '@nestjs/common';
 import { UserCreateDto } from './dtos/user-create.dto';
 import { Request, Response } from 'express';
-import { sign, verify } from 'jsonwebtoken';
+import { sign } from 'jsonwebtoken';
 import cookieConfig from './../../config/cookie';
 import { UserService } from './user.service';
 import { OAuth2Client } from 'google-auth-library';
 import { readFileSync } from 'fs';
-import { publicEncrypt, privateDecrypt } from 'crypto';
+import * as NodeRSA from 'node-rsa';
 
 @Controller('user')
 export class UserController {
@@ -33,6 +33,8 @@ export class UserController {
     @Res() res: Response,
   ) {
     try {
+      const key = new NodeRSA(readFileSync('private.pem'));
+
       const user = await this.userService.loginUser(email, password);
 
       if (!user)
@@ -43,12 +45,7 @@ export class UserController {
       const token = await sign(user._id.toString(), process.env.SECRET);
 
       //Hash user with Node Rsa
-      const publicKey = readFileSync('./public.pem', 'utf8');
-      const encrypted = publicEncrypt(
-        publicKey,
-        Buffer.from(user.email.toString()),
-      );
-      console.log('encrypted: ', encrypted.toString('base64'));
+      const encrypted = key.encrypt(user.email, 'base64');
 
       return res
         .cookie('jwt', token, cookieConfig())

@@ -90,7 +90,7 @@ In this project, we employ a combination of JWT (JSON Web Tokens) and RSA encryp
 
 \*\*
 
-- Create two files private.pem and public.pem to get started. (The file should begin with -----BEGIN PUBLIC KEY----- and end with -----END PUBLIC KEY-----)
+- Create a private.pem file to get started. (The file should begin with -----BEGIN PUBLIC KEY----- and end with -----END PUBLIC KEY-----)
 
 - Generate a random string here
   https://www.random.org/strings/?num=10&len=32&digits=on&upperalpha=on&loweralpha=on&unique=on&format=html&rnd=new \*

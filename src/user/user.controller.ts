@@ -13,6 +13,8 @@ import { sign, verify } from 'jsonwebtoken';
 import cookieConfig from './../../config/cookie';
 import { UserService } from './user.service';
 import { OAuth2Client } from 'google-auth-library';
+import fs from 'fs';
+import { publicEncrypt, privateDecrypt } from 'crypto';
 
 @Controller('user')
 export class UserController {
@@ -39,6 +41,16 @@ export class UserController {
           .json({ message: 'Invalid credentials' });
 
       const token = await sign(user._id.toString(), process.env.SECRET);
+
+      //hash user with node rsa
+      const publicKey = fs.readFileSync('./public.pem', 'utf8');
+      const privateKey = fs.readFileSync('./private.pem', 'utf8');
+      const encrypted = publicEncrypt(
+        publicKey,
+        Buffer.from(user._id.toString()),
+      );
+      const decrypted = privateDecrypt(privateKey, encrypted);
+      console.log('decrypted: ', decrypted.toString());
 
       return res
         .cookie('jwt', token, cookieConfig())
